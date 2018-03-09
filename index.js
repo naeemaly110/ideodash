@@ -4,6 +4,7 @@ import { graphqlExpress , graphiqlExpress } from "apollo-server-express";
 import typeDefs from "./schema/index";
 import resolvers from "./resolvers/index";
 import { makeExecutableSchema }  from "graphql-tools";
+import models from "./models";
 
 
 const app = express();
@@ -19,4 +20,6 @@ app.use('/graphiql', graphiqlExpress({
     endpointURL: '/graphql'
 }));
 
-app.listen(8081);
+models.sequelize.sync({force:true}).then(()=>{
+    app.listen(8003);
+})

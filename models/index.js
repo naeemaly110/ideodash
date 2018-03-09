@@ -9,12 +9,14 @@ const sequelize = new Sequelize({
 
   const models = {
       User: sequelize.import('./user'),
-      Project: sequelize.import('./project'),
-      Task: sequelize.import('./task'),      
-      Message: sequelize.import('./message'),                
+      Project: sequelize.import('./project')              
   }
 
-  
+  Object.keys(models).forEach(modelName => {
+    if (models[modelName].associate) {
+        models[modelName].associate(models);
+    }
+  });
 
 
   

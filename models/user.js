@@ -1,27 +1,27 @@
-
+'use strict';
 export default (sequelize, DataTypes) => {
 
     const  User = sequelize.define("user",{
         fname:{
-            type: DataTypes.String
+            type: DataTypes.STRING
         },
         lname:{
-            type: DataTypes.String
+            type: DataTypes.STRING
         },
         gender:{
            type: DataTypes.ENUM('male','female'),
            defaultValue:null 
         },
         username:{
-            type: DataTypes.String,
+            type: DataTypes.STRING,
             unique: true
         },
         email:{
-            type: DataTypes.String,
+            type: DataTypes.STRING,
             unique: true
         },
         password:{
-            type: DataTypes.String,
+            type: DataTypes.STRING,
         },
         status:{
             type: DataTypes.ENUM('active','inactive'),
@@ -31,7 +31,11 @@ export default (sequelize, DataTypes) => {
     });
 
     User.associate = (models) => {
-        User.belongTo
+        User.hasMany(models.Project, {
+            foreignKey: 'owner',
+          });
     };
+
+    return User;
 
 }
