@@ -32,7 +32,7 @@ export default (sequelize, DataTypes) => {
 
     User.associate = (models) => {
         User.hasMany(models.Project, {
-            foreignKey: 'owner',
+            foreignKey: 'creator',
           });
     };
 

@@ -1,15 +1,16 @@
 import Sequelize from "sequelize";
 
-const sequelize = new Sequelize({
-    database: 'testexpress',
-    username: 'root',
-    password: null,
-    dialect: 'mysql'
+const sequelize = new Sequelize( 'testexpress','root',null,{ 
+    dialect: 'mysql',
+    define: {
+        underscored : true
+    }
   });
 
   const models = {
       User: sequelize.import('./user'),
-      Project: sequelize.import('./project')              
+      Project: sequelize.import('./project'),              
+      Designation: sequelize.import('./designation')              
   }
 
   Object.keys(models).forEach(modelName => {
