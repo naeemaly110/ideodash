@@ -10,10 +10,6 @@ export default (sequelize, DataTypes) => {
             allowNull: false,
             defaultValue: DataTypes.NOW
         },
-        deadline:{
-            type: DataTypes.DATE,
-            allowNull : true
-        },
         status:{
             type: DataTypes.ENUM("active","inactive"),
             defaultValue: 'inactive'
@@ -21,7 +17,12 @@ export default (sequelize, DataTypes) => {
     });
 
     Project.associate = (models) => {
-        
+        Project.hasMany(models.Task,{
+            foreignKey : {
+                name : 'projectId',
+                field : 'project_id'
+            } 
+        })
     };
 
     return Project;

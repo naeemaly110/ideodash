@@ -33,7 +33,20 @@ export default (sequelize, DataTypes) => {
     User.associate = (models) => {
         User.hasMany(models.Project, {
             foreignKey: 'creator',
-          });
+        });
+        User.hasMany(models.Message, {
+            foreignKey: {
+                name: 'userID',
+                field: 'user_id'
+            },
+        });
+        User.belongsToMany(models.Task,{
+            through: 'taskuser',
+            foreignKey: {
+                name: 'userId',
+                field: 'user_id'
+            }
+        })
     };
 
     return User;

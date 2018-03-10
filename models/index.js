@@ -10,7 +10,9 @@ const sequelize = new Sequelize( 'testexpress','root',null,{
   const models = {
       User: sequelize.import('./user'),
       Project: sequelize.import('./project'),              
-      Designation: sequelize.import('./designation')              
+      Designation: sequelize.import('./designation'),
+      Task: sequelize.import('./task'),                                  
+      Message: sequelize.import('./message')                                  
   }
 
   Object.keys(models).forEach(modelName => {
