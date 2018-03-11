@@ -12,5 +12,4 @@ export default `
     type Mutation {
         createDesignation(name: String!) : Designation!
     }
-
 `;
