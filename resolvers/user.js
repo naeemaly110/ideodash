@@ -26,10 +26,17 @@ export default {
     Mutation:{
         createUser: async (parent,args,{models}) => {
             try {
-                await models.User.create(args);
-                return true;
+                const user = await models.User.create(args);
+                return {
+                    ok: true,
+                    user : user,
+                    error : null
+                };
             } catch (error) {
-                return false;
+                return {
+                    ok: false,
+                    error : error
+                };
             }
         }
     }

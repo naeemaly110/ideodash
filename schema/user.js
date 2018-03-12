@@ -15,10 +15,23 @@ export default `
 
     type Query{
         getUser(id: Int!) : User
+        getAllUser: [User!]
+    }
+
+    type Error{
+        path: String!
+        message: String!
+    }
+    type CreateUserResponse{
+        ok: Boolean
+        user: User
+        error : Error
     }
 
     type Mutation {
-        createUser(fname: String!, lname: String!, gender: Gender!, username: String, email: String!, password: String!, status: Status!, designationId: Int!): Boolean!
+        createUser(fname: String!, lname: String!, gender: Gender!, username: String, email: String!, password: String!, status: Status!, designationId: Int!): CreateUserResponse!
+        updateUser(fname: String!, lname: String!, gender: Gender!, username: String, email: String!, status: Status!, designationId: Int!, userId: Int!) : User!
+        deleteUser(userId: Int!) : Boolean!
     }
 
 `;
