@@ -68,7 +68,6 @@ export default {
                     expiresIn: '1y'
                 }
             )
-
             return token;
 
         }
