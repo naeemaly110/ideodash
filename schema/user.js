@@ -32,6 +32,7 @@ export default `
         createUser(fname: String!, lname: String!, gender: Gender!, username: String, email: String!, password: String!, status: Status!, designationId: Int!): CreateUserResponse!
         updateUser(fname: String!, lname: String!, gender: Gender!, username: String, email: String!, status: Status!, designationId: Int!, userId: Int!) : User!
         deleteUser(userId: Int!) : Boolean!
+        loginUser(username: String!, password: String!) : String!
     }
 
 `;

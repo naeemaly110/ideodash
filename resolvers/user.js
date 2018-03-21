@@ -1,3 +1,8 @@
+import jwt from "jsonwebtoken";
+import bcrypt from 'bcrypt';
+import _ from 'lodash';
+
+
 export default {
     User:{
         designation: async ({designationId},args,{models}) => {
@@ -26,7 +31,9 @@ export default {
     Mutation:{
         createUser: async (parent,args,{models}) => {
             try {
-                const user = await models.User.create(args);
+                createUser = args;
+                createUser.password = await bcrypt.hash(createUser.password, 12);
+                const user = await models.User.create(createUser);
                 return {
                     ok: true,
                     user : user,
@@ -38,7 +45,34 @@ export default {
                     error : error
                 };
             }
+        },
+        loginUser : async (parent,{ username, password }, {models,SECRET}) => {
+            const user = await models.User.findOne({where:{username}});
+
+            if(!user){
+                throw new Error('no user with that username');
+            }
+
+            const valid = await bcrypt.compare(password,user.password);
+
+            if(!valid){
+                throw new Error('password is incorrent');
+            }
+
+            const token = jwt.sign(
+                {
+                    user: _.pick(user,[id,username])
+                }, 
+                SECRET,
+                {
+                    expiresIn: '1y'
+                }
+            )
+
+            return token;
+
         }
     }
+
 
 }
