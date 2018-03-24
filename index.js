@@ -54,5 +54,7 @@ app.use('/graphiql', graphiqlExpress({
 }));
 
 models.sequelize.sync({}).then(()=>{
-    app.listen(8003);
+    app.listen(8003,()=>{
+        console.log("start at port 8003");
+    });
 })
